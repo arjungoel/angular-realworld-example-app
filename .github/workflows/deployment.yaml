@@ -13,7 +13,7 @@ jobs:
       - name: Install dependencies
         run: npm install
       - name: Build Website
-        run: npm build --prod
+        run: ng build --prod
       - name: Set AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
