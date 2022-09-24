@@ -12,12 +12,12 @@ jobs:
       - uses: actions/setup-node@v2
       - name: Build and Deploy using Angular GitHub Actions
         uses: mayurrawte/github-angular-actions@latest
-        with:
-          github_access_token: ${{ secrets.ACCESS_TOKEN }}
-          build_configuration: production
-        #  base_href: "" 
-          deploy_branch: develop 
-          angular_dist_build_folder: dist/
+        # with:
+        #   github_access_token: ${{ secrets.ACCESS_TOKEN }}
+        #   build_configuration: production
+        # #  base_href: "" 
+        #   deploy_branch: develop 
+        #   angular_dist_build_folder: dist/
       - name: Set AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
