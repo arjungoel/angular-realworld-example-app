@@ -10,10 +10,14 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
-      - name: Install dependencies
-        run: npm install
-      - name: Build Website
-        run: ng build --prod
+      - name: Build and Deploy
+        uses: AhsanAyaz/angular-deploy-gh-pages-actions@v1.3.1
+        with:
+          github_access_token: ${{ secrets.ACCESS_TOKEN }}
+          build_configuration: production
+          base_href: "" 
+          deploy_branch: develop 
+          angular_dist_build_folder: dist/
       - name: Set AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -23,7 +27,7 @@ jobs:
       - name: Copy to S3    
         env:
           S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
-        run: aws s3 sync ./build/. s3://${S3_BUCKET}
+        run: aws s3 sync ./dist/. s3://${S3_BUCKET}
       - name: Invalidating CloudFront Cache
         env: 
           CLOUDFRONT_DISTRIBUTION: ${{ secrets.AWS_CLOUDFRONT_DISTRIBUTION }}
